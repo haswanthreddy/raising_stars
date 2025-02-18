@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         post "/admins/sign_up", to: "admins/registrations#create"
         post "/admins/sign_in", to: "admins/sessions#create"
         delete "/admins/sign_out", to: "admins/sessions#destroy"
+
+        resources :activities, except: :show
     end
   end
 
