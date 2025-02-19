@@ -1,6 +1,6 @@
-class Api::V1::ActivitiesController < ApplicationController
+class Api::V1::Admins::ActivitiesController < ApplicationController
 	before_action :require_admin_authentication
-	before_action :set_admin, only: %i[update destroy]
+	before_action :set_admin, except: %i[index]
 	before_action :set_activity, only: %i[update destroy]
 
 	def index
@@ -46,13 +46,19 @@ class Api::V1::ActivitiesController < ApplicationController
 	  end
 
 	  def destroy
-			@activity.destroy
-			
-			render json: {
-				code: 200,
-				status: "success",
-				message: "activity deleted"
-			}, status: :ok
+      if @activity.destroy
+        render json: {
+          code: 200,
+          status: "success",
+          data: @activity
+        }, status: :ok
+      else
+        render json: {
+          code: 422,
+          status: "error",
+          errors: @activity.errors.full_messages
+        }, status: :unprocessable_entity
+      end
 	  end
 	
 	  private
@@ -62,7 +68,7 @@ class Api::V1::ActivitiesController < ApplicationController
 	  end
 	
 	  def set_activity
-		@activity ||= @current_admin.activities.find_by(id: params[:id])
+		@activity ||= Activity.find_by(id: params[:id])
 		
 			unless @activity.present?
 				return render json: {
@@ -74,6 +80,9 @@ class Api::V1::ActivitiesController < ApplicationController
 	  end
 	
 	  def activity_params
-		params.require(:activity).permit(:name, :frequency, :category, :repetition, :description)
+		  params.require(:activity).permit(:name, :frequency, :category, :repetition, :description).tap do |p|
+        p[:frequency] = p[:frequency].to_i if p[:frequency].present?
+        p[:category] = p[:category].to_i if p[:category].present?
+      end
 	  end
 end

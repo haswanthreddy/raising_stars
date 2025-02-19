@@ -4,9 +4,6 @@ class Activity < ApplicationRecord
   enum :frequency, {
       daily: 0,
       weekly: 1,
-      monthly: 2,
-      daily: 0,
-      weekly: 1,
       monthly: 2
     }
 

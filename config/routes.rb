@@ -20,7 +20,9 @@ Rails.application.routes.draw do
         post "/admins/sign_in", to: "admins/sessions#create"
         delete "/admins/sign_out", to: "admins/sessions#destroy"
 
-        resources :activities, except: :show
+        namespace :admins do
+          resources :activities, except: :show
+        end
     end
   end
 
