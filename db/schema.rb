@@ -41,6 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_19_083721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_program_activities_on_activity_id"
+    t.index ["program_id", "activity_id"], name: "index_program_activities_on_program_id_and_activity_id", unique: true
     t.index ["program_id"], name: "index_program_activities_on_program_id"
   end
 

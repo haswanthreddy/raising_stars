@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Activities", type: :request do
+RSpec.describe "Api::V1::Admins::Activities", type: :request do
   let!(:admin) { create(:admin) }
   let(:cookies) { login_as(:admin, admin.email_address, admin.password) }
   let(:valid_params) do

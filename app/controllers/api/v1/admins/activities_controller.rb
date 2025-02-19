@@ -37,7 +37,7 @@ class Api::V1::Admins::ActivitiesController < ApplicationController
 				render json: {
 					code: 200,
 					status: "success",
-					message: "updated successful",
+					message: "Activity updated successful",
 					data: @activity
 				}, status: :ok
 			else
