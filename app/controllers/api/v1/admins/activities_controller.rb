@@ -41,7 +41,11 @@ class Api::V1::Admins::ActivitiesController < ApplicationController
 					data: @activity
 				}, status: :ok
 			else
-				render json: { errors: @activity.errors.full_messages }, status: :unprocessable_entity
+				render json: { 
+          code: 422,
+          status: "error",
+          errors: @activity.errors.full_messages 
+        }, status: :unprocessable_entity
 			end
 	  end
 

@@ -46,4 +46,40 @@ RSpec.describe User, type: :model do
       expect(user.email_address).to eq("another@example.com")
     end
   end
+
+  describe "#active_program?" do
+    let(:user) { create(:user) }
+
+    context "when there is no active program" do
+      it "should return true" do
+        expect(user.active_program?).to eq(false)
+      end
+    end
+
+    context "when there is active program" do
+      it "should return true" do    
+        create(:program, user_id: user.id)
+        
+        expect(user.active_program?).to eq(true)
+      end
+    end
+  end
+
+  describe "#current_program" do
+    let(:user) { create(:user) }
+
+    context "when there is no active program" do
+      it "returns nil" do
+        expect(user.current_program).to be_nil
+      end
+    end
+
+    context "when there is current active program" do
+      it "should return the current program" do
+        program = create(:program, user_id: user.id)
+
+        expect(user.current_program).to eq(program)
+      end
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_110837) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_19_083721) do
   create_table "activities", force: :cascade do |t|
     t.integer "admin_id"
     t.string "name", null: false
@@ -31,6 +31,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_110837) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_admins_on_email_address", unique: true
+  end
+
+  create_table "program_activities", force: :cascade do |t|
+    t.integer "program_id", null: false
+    t.integer "activity_id", null: false
+    t.integer "frequency"
+    t.integer "repetition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_program_activities_on_activity_id"
+    t.index ["program_id"], name: "index_program_activities_on_program_id"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "user_id"
+    t.string "title"
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_programs_on_admin_id"
+    t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|

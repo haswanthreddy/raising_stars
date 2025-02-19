@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
         namespace :admins do
           resources :activities, except: :show
+          resources :programs, except: :index
         end
     end
   end
