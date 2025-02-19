@@ -30,6 +30,9 @@ Rails.application.routes.draw do
         resources :users, only: [] do
           resources :tasks, only: %i[index show]
         end
+        resources :programs, only: [] do
+          resources :user_activities, only: %i[create]
+        end
     end
   end
 

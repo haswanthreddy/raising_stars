@@ -36,7 +36,8 @@ class Api::V1::TasksController < ApplicationController
         name: task.activity.name,
         repetition: task.repetition,
         frequency: task.frequency,
-        done: user_activities[task.activity_id] || false
+        done: user_activities[task.activity_id] || false,
+        activity_id: task.activity_id
       }
     end
   
@@ -56,11 +57,21 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def user_activities(target_day)
-    target_date = @current_program.start_date.to_date + (target_day - 1)
+    target_date = @current_program.start_date.to_date + (target_day - 1).days
     start_of_day = target_date.beginning_of_day
     end_of_day = target_date.end_of_day
+
+    Time.zone = 'Asia/Kolkata'
+    target_date_in_app_timezone = target_date.in_time_zone(Time.zone)
+
+    start_of_day = target_date_in_app_timezone.beginning_of_day
+    end_of_day = target_date_in_app_timezone.end_of_day
+
+    start_of_day_utc = start_of_day.utc
+    end_of_day_utc = end_of_day.utc
+
     
-    filtered_user_activities = @current_program.user_activities.where(created_at: start_of_day..end_of_day)
+    filtered_user_activities = @current_program.user_activities.where(created_at: start_of_day_utc..end_of_day_utc)
 
     user_activities = {}
 
@@ -84,6 +95,11 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def no_active_program_response
+    return render json: {
+      code: 200,
+      status: "success",
+      message: "you have no active program"
+    }, status: :ok
   end
 
   def set_user
