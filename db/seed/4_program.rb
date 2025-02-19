@@ -8,6 +8,6 @@ Program.create(
   user_id: user.id,
   admin_id: admin.id,
   title: "initial phase",
-  start_date: Date.today - 1.day,
-  end_date: Date.today + 2.month
+  start_date: Date.today - 10.days,
+  end_date: Date.today + 80.days
 )

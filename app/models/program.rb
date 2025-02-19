@@ -2,6 +2,7 @@ class Program < ApplicationRecord
   belongs_to :user
   belongs_to :admin
   has_many :program_activities, dependent: :destroy
+  has_many :user_activities, dependent: :destroy
 
   validates :start_date, presence: true
   validates :end_date, presence: true
@@ -10,6 +11,18 @@ class Program < ApplicationRecord
 
   def deleted?
     deleted_at.present?
+  end
+
+  def current_day
+    (Date.today - start_date.to_date).to_i + 1
+  end
+
+  def current_week_start_day
+    (current_day - ((current_day - 1) % 7))
+  end
+
+  def current_week_end_day
+    current_week_start_day + 6
   end
 
   private

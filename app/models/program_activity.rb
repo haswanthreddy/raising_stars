@@ -15,6 +15,17 @@ class ProgramActivity < ApplicationRecord
     self[:repetition] || activity&.repetition
   end
 
+  def weekday_occurrences?(weekday)
+    case repetition
+    when 3
+      [2, 4, 6].include?(weekday)
+    when 2
+      [3, 5].include?(weekday)
+    else
+      [4].include?(weekday)
+    end
+  end
+
   private 
 
   def repetition_within_frequency_range

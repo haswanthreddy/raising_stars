@@ -12,15 +12,25 @@ class Api::V1::Users::SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for(user)
+
+      data = {
+        full_name: user.full_name,
+        email_address: user.email_address,
+      }
+
+    current_day = nil
+
+      if user.active_program?
+       current_day = user.current_program.current_day
+      end
+        
+      data["current_day"] = current_day
       
       render json: {
         code: 200,
         status: "success",
         message: "User signed in successfully",
-        data: {
-          full_name: user.full_name,
-          email_address: user.email_address
-        }
+        data: data
       }, status: :ok
     else
       render json: {

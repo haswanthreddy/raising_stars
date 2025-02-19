@@ -1,5 +1,7 @@
 class Activity < ApplicationRecord
   belongs_to :admin, optional: true
+  has_many :user_activities, dependent: :destroy
+  has_many :program_activities, dependent: :destroy
 
   enum :frequency, {
       daily: 0,
