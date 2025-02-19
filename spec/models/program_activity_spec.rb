@@ -37,6 +37,16 @@ RSpec.describe ProgramActivity, type: :model do
       end
     end
   end
+  
+  describe "enums" do
+    it "defines correct values for frequency enum" do
+      expect(ProgramActivity.frequencies).to eq({
+        "daily" => 0,
+        "weekly" => 1,
+        "monthly" => 2
+      })
+    end
+  end
 
   describe "#repetition" do
     context "when repetition attribute is null" do
@@ -54,6 +64,52 @@ RSpec.describe ProgramActivity, type: :model do
         program_activity = create(:program_activity, activity: activity, repetition: 4)
         
         expect(program_activity.repetition).to eq(4)
+      end
+    end
+  end
+
+  describe 'custom repetition validation' do
+    context 'when frequency is weekly' do
+      it 'is invalid if repetition is 7 or more' do
+        program_activity = build(:program_activity, frequency: "weekly", repetition: 10)
+       
+        expect(program_activity).not_to be_valid
+        expect(program_activity.errors[:repetition]).to include('must be less than 7 for weekly frequency')
+      end
+
+      it 'is valid if repetition is less than 7' do
+        program_activity = build(:program_activity, frequency: 'weekly', repetition: 6)
+
+        expect(program_activity).to be_valid
+      end
+    end
+
+    context 'when frequency is monthly' do
+      it 'is invalid if repetition is 30 or more' do
+        program_activity = build(:program_activity, frequency: 'monthly', repetition: 30)
+
+        expect(program_activity).not_to be_valid
+        expect(program_activity.errors[:repetition]).to include('must be less than 30 for monthly frequency')
+      end
+
+      it 'is valid if repetition is less than 30' do
+        program_activity = build(:program_activity, frequency: 'monthly', repetition: 29)
+
+        expect(program_activity).to be_valid
+      end
+    end
+
+    context 'when frequency is daily' do
+      it 'is valid repetition 10 or less' do
+        program_activity  = build(:program_activity, frequency: 'daily', repetition: 10)
+
+        expect(program_activity).to be_valid
+      end
+
+      it "is invalid if repetition is more than 10" do
+        program_activity = build(:program_activity, frequency: 'daily', repetition: 11)
+
+        expect(program_activity).not_to be_valid
       end
     end
   end
