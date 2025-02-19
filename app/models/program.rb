@@ -23,13 +23,13 @@ class Program < ApplicationRecord
   def date_overlap_validation
     return if start_date.blank? || end_date.blank? || user_id.blank?
 
-    errors.add(:base, 'Program dates overlap with an existing record') if overlapping_records.present?
+    errors.add(:base, "Program dates overlap with an existing record") if overlapping_records.present?
   end
 
   def overlapping_records
     self.class.where(user_id: user_id)
     .where.not(id: id)
-    .where('(start_date < :end_date AND end_date > :start_date)', 
+    .where("(start_date < :end_date AND end_date > :start_date)", 
            start_date: start_date, end_date: end_date)
   end
 end

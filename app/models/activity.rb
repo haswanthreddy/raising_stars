@@ -3,8 +3,7 @@ class Activity < ApplicationRecord
 
   enum :frequency, {
       daily: 0,
-      weekly: 1,
-      monthly: 2
+      weekly: 1
     }
 
     enum :category, {
@@ -34,12 +33,10 @@ class Activity < ApplicationRecord
     return unless repetition && frequency
 
     case frequency
-    when 'daily'
-      errors.add(:repetition, 'must be less than 10 for daily frequency') if repetition > 10
-    when 'weekly'
-      errors.add(:repetition, 'must be less than 7 for weekly frequency') if repetition >= 7
-    when 'monthly'
-      errors.add(:repetition, 'must be less than 30 for monthly frequency') if repetition >= 30
+    when "daily"
+      errors.add(:repetition, "must be less than 10 for daily frequency") if repetition > 10
+    when "weekly"
+      errors.add(:repetition, "must be 3 or less for weekly frequency") if repetition > 3
     end
   end
 end

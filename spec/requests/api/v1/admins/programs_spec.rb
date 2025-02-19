@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Admins::Program", type: :request do
   let!(:admin) { create(:admin) }
