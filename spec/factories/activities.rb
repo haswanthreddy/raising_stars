@@ -5,6 +5,6 @@ FactoryBot.define do
     description { "sample description" }
     category { Activity.categories.keys.sample }
     frequency { Activity.frequencies.keys.sample }
-    repetition { rand(1..10) }
+    repetition { rand(1..3) }
   end
 end

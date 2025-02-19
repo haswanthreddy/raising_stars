@@ -17,6 +17,52 @@ RSpec.describe Activity, type: :model do
     end
   end
 
+  describe 'custom repetition validation' do
+    context 'when frequency is weekly' do
+      it 'is invalid if repetition is 7 or more' do
+        activity = build(:activity, frequency: "weekly", repetition: 10)
+       
+        expect(activity).not_to be_valid
+        expect(activity.errors[:repetition]).to include('must be less than 7 for weekly frequency')
+      end
+
+      it 'is valid if repetition is less than 7' do
+        activity = build(:activity, frequency: 'weekly', repetition: 6)
+
+        expect(activity).to be_valid
+      end
+    end
+
+    context 'when frequency is monthly' do
+      it 'is invalid if repetition is 30 or more' do
+        activity = build(:activity, frequency: 'monthly', repetition: 30)
+
+        expect(activity).not_to be_valid
+        expect(activity.errors[:repetition]).to include('must be less than 30 for monthly frequency')
+      end
+
+      it 'is valid if repetition is less than 30' do
+        activity = build(:activity, frequency: 'monthly', repetition: 29)
+
+        expect(activity).to be_valid
+      end
+    end
+
+    context 'when frequency is daily' do
+      it 'is valid repetition 10 or less' do
+        activity = build(:activity, frequency: 'daily', repetition: 10)
+
+        expect(activity).to be_valid
+      end
+
+      it "is invalid if repetition is more than 10" do
+        activity = build(:activity, frequency: 'daily', repetition: 11)
+
+        expect(activity).not_to be_valid
+      end
+    end
+  end
+
   describe "enums" do
     it "defines correct values for frequency enum" do
       expect(Activity.frequencies).to eq({

@@ -39,13 +39,13 @@ RSpec.describe "Api::V1::Admins::Activities", type: :request do
 
   describe "PATCH /api/v1/admins/activities/:id" do
     let(:activity) { create(:activity) }
-    let(:update_params) { { activity: { repetition: 10, frequency: Activity.frequencies[:weekly] } } }
+    let(:update_params) { { activity: { repetition: 3, frequency: Activity.frequencies[:weekly] } } }
 
     it "updates the activity" do
       patch "/api/v1/admins/activities/#{activity.id}", params: update_params, headers: cookies
 
       expect(response).to have_http_status(:ok)
-      expect(activity.reload.repetition).to eq(10)
+      expect(activity.reload.repetition).to eq(3)
       expect(activity.reload.frequency).to eq("weekly")
     end
   end
