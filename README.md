@@ -41,7 +41,7 @@ Test
 
 
 ## Project running
-seeds have been provided, setup db and run seeds, below is the link for postman API's
+seeds have been provided, setup db and run seeds, below is the postman API's JSON file
 
 
 [Uploading raising superstar.postman_collection.json…]()
