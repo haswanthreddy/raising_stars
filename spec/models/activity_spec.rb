@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Activity, type: :model do
   describe "Associations" do
     it { should belong_to(:admin).optional }
+    it { should have_many(:user_activities) }
+    it { should have_many(:program_activities) }
   end
 
   describe "validations" do

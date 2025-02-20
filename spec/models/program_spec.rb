@@ -4,6 +4,8 @@ RSpec.describe Program, type: :model do
   describe "associations" do
     it { should belong_to(:user) }
     it { should belong_to(:admin) }
+    it { should have_many(:program_activities) }
+    it { should have_many(:user_activities) }
   end
 
   describe "validations" do
@@ -55,6 +57,47 @@ RSpec.describe Program, type: :model do
         
         expect(program.deleted?).to be true
       end
+    end
+  end
+
+  describe "#current_day" do
+    it "returns the number of days from the start date" do
+      program = create(:program, start_date: Date.today.beginning_of_day - 10.days, end_date: Date.today + 3.months)
+      
+      expect(program.current_day).to eq(11)
+    end
+  end
+
+  describe '#current_week_start_day' do
+    let(:program) { create(:program, start_date: Date.today - 10.days) }
+
+    it { expect(program.current_week_start_day).to eq(program.current_day - ((program.current_day - 1) % 7)) }
+
+    context 'when current_day is a multiple of 7' do
+      let(:program) { create(:program, start_date: Date.today - 6.days) }
+
+      it { expect(program.current_week_start_day).to eq(1) }
+    end
+
+    context 'when current_day is 1' do
+      let(:program) { create(:program, start_date: Date.today) }
+      it { expect(program.current_week_start_day).to eq(1) }
+    end
+  end
+
+  describe '#current_week_end_day' do
+    let(:program) { create(:program, start_date: Date.today - 10.days) }
+
+    it { expect(program.current_week_end_day).to eq(program.current_week_start_day + 6) }
+
+    context 'when current_day is a multiple of 7' do
+      let(:program) { create(:program, start_date: Date.today - 6.days) }
+      it { expect(program.current_week_end_day).to eq(7) }
+    end
+
+    context 'when current_day is 1' do
+      let(:program) { create(:program, start_date: Date.today) }
+      it { expect(program.current_week_end_day).to eq(7) }
     end
   end
 end

@@ -2,6 +2,9 @@ require "rails_helper"
 
 RSpec.describe Admin, type: :model do
   describe "Associations" do
+    it { should have_many(:activities) }
+    it { should have_many(:programs) }
+
     context "session associations" do    
       it { is_expected.to have_many(:sessions) }
 

@@ -25,7 +25,7 @@ class Api::V1::TasksController < ApplicationController
   private
   
   def daily_tasks(program_activities, day)
-    weekday = (day % 7).to_i
+    weekday = ((day - 1) % 7).to_i + 1
     user_activities = user_activities(day)
 
     tasks = program_activities.select { |pc| pc.frequency == "daily" || pc.weekday_occurrences?(weekday) }

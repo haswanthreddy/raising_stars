@@ -97,4 +97,58 @@ RSpec.describe ProgramActivity, type: :model do
       end
     end
   end
+
+  describe '#weekday_occurrences?' do
+    let(:program_activity) { create(:program_activity) }
+
+    context 'when repetition is 3 and frequency is weekly' do
+      before { program_activity.repetition = 3 }
+
+      it 'returns true for Tuesday, Thursday, and Saturday' do
+        expect(program_activity.weekday_occurrences?(2)).to be true
+        expect(program_activity.weekday_occurrences?(4)).to be true
+        expect(program_activity.weekday_occurrences?(6)).to be true
+      end
+
+      it 'returns false for other weekdays' do
+        expect(program_activity.weekday_occurrences?(1)).to be false # Monday
+        expect(program_activity.weekday_occurrences?(3)).to be false # Wednesday
+        expect(program_activity.weekday_occurrences?(5)).to be false # Friday
+        expect(program_activity.weekday_occurrences?(7)).to be false # Sunday
+      end
+    end
+
+    context 'when repetition is 2' do
+      before { program_activity.repetition = 2 }
+
+      it 'returns true for Wednesday and Friday' do
+        expect(program_activity.weekday_occurrences?(3)).to be true
+        expect(program_activity.weekday_occurrences?(5)).to be true
+      end
+
+      it 'returns false for other weekdays' do
+        expect(program_activity.weekday_occurrences?(1)).to be false
+        expect(program_activity.weekday_occurrences?(2)).to be false
+        expect(program_activity.weekday_occurrences?(4)).to be false
+        expect(program_activity.weekday_occurrences?(6)).to be false
+        expect(program_activity.weekday_occurrences?(7)).to be false
+      end
+    end
+
+    context 'when repetition is 1' do
+      before { program_activity.repetition = 1 }
+
+      it 'returns true for Thursday' do
+        expect(program_activity.weekday_occurrences?(4)).to be true
+      end
+
+      it "returns false for all days other than Thursday" do
+        expect(program_activity.weekday_occurrences?(1)).to be false
+        expect(program_activity.weekday_occurrences?(2)).to be false
+        expect(program_activity.weekday_occurrences?(5)).to be false
+        expect(program_activity.weekday_occurrences?(6)).to be false
+        expect(program_activity.weekday_occurrences?(7)).to be false
+      end
+    end
+  end
 end
