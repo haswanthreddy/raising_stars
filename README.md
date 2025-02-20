@@ -23,4 +23,31 @@ represents if an activity for a certain day has been done or not
 
 
 
+## Tooling
+Ruby
+  - 3.4.1
+    
+Rails 
+  - 8
+    
+DB
+  - Sqlite
+    
+Authentication
+-  rails authentication generators
+  
+Test
+-  RSpec
+
+
+## Project running
+seeds have been provided, setup db and run seeds, below is the link for postman API's
+
+
+[Uploading raising superstar.postman_collection.json…]()
+
+
+
+
+
 
