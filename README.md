@@ -61,6 +61,11 @@ seed
 rails db:seed
 ```
 
+Start server
+```
+bin/dev
+```
+
 ## screen - 1
 https://www.loom.com/share/5c9a06be19a84f1996b18e1a9caf6ed4?sid=c4eb079f-81bc-45fe-8989-4afa8132cda3
 - the api requries admin `authentication`
