@@ -40,14 +40,193 @@ Test
 -  RSpec
 
 
-## Project running
-seeds have been provided, setup db and run seeds, below is the postman API's JSON file
+# Setup
+after cloning change to the Dir. and 
+```
+bundle install
+```
+
+create db
+```
+rails db:create
+```
+
+migrate
+```
+rails db:migrate
+```
+
+seed
+```
+rails db:seed
+```
+
+## screen - 1
+https://www.loom.com/share/5c9a06be19a84f1996b18e1a9caf6ed4?sid=c4eb079f-81bc-45fe-8989-4afa8132cda3
+- the api requries admin `authentication`
+```
+http://127.0.0.1:3000/api/v1/admins/programs/1/program_activities
+```
+
+sample data
+```
+{
+    "code": 200,
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "program_id": 1,
+            "activity_id": 1,
+            "frequency": "weekly",
+            "repetition": 3,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 2,
+            "program_id": 1,
+            "activity_id": 2,
+            "frequency": "weekly",
+            "repetition": 2,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 3,
+            "program_id": 1,
+            "activity_id": 3,
+            "frequency": "daily",
+            "repetition": 1,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 4,
+            "program_id": 1,
+            "activity_id": 4,
+            "frequency": "daily",
+            "repetition": 2,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 5,
+            "program_id": 1,
+            "activity_id": 5,
+            "frequency": "daily",
+            "repetition": 2,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 6,
+            "program_id": 1,
+            "activity_id": 6,
+            "frequency": "daily",
+            "repetition": 2,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 7,
+            "program_id": 1,
+            "activity_id": 7,
+            "frequency": "daily",
+            "repetition": 10,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        },
+        {
+            "id": 8,
+            "program_id": 1,
+            "activity_id": 8,
+            "frequency": "weekly",
+            "repetition": 1,
+            "created_at": "2025-04-24T11:25:35.651+05:30",
+            "updated_at": "2025-04-24T11:25:35.651+05:30"
+        }
+    ]
+}
+```
+
+## screen - 2
+https://www.loom.com/share/f945d8efdf444981803545d4f43a49d3?sid=34a48a57-e0d8-457b-9c01-fa0b3f7a123d
+the api for screen one 
+- requires `authentication`
+```
+http://127.0.0.1:3000/api/v1/users/1/tasks
+```
+
+sample data
+```
+{
+    "code": 200,
+    "status": "success",
+    "message": "Daily tasks successfully fetched",
+    "data": [
+        {
+            "id": 1,
+            "name": "Stimulus Explosion",
+            "repetition": 3,
+            "frequency": "weekly",
+            "done": false,
+            "activity_id": 1
+        },
+        {
+            "id": 3,
+            "name": "Auditory Memory 2",
+            "repetition": 1,
+            "frequency": "daily",
+            "done": false,
+            "activity_id": 3
+        },
+        {
+            "id": 4,
+            "name": "Auditory Magic",
+            "repetition": 2,
+            "frequency": "daily",
+            "done": false,
+            "activity_id": 4
+        },
+        {
+            "id": 5,
+            "name": "Knowledge Boosters",
+            "repetition": 2,
+            "frequency": "daily",
+            "done": false,
+            "activity_id": 5
+        },
+        {
+            "id": 6,
+            "name": "Talk to listen",
+            "repetition": 2,
+            "frequency": "daily",
+            "done": false,
+            "activity_id": 6
+        },
+        {
+            "id": 7,
+            "name": "Energy Ball",
+            "repetition": 10,
+            "frequency": "daily",
+            "done": false,
+            "activity_id": 7
+        },
+        {
+            "id": 8,
+            "name": "Visual Solfege",
+            "repetition": 1,
+            "frequency": "weekly",
+            "done": false,
+            "activity_id": 8
+        }
+    ]
+}
+```
 
 
-[Uploading raising superstar.postman_collection.json…]()
 
-
-
-
-
+# API Documentation
+https://documenter.getpostman.com/view/17773357/2sB2ixkZfJ
 
